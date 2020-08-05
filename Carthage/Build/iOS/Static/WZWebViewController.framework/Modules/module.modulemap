@@ -1,0 +1,11 @@
+framework module WZWebViewController {
+  umbrella header "WZWebViewController-umbrella.h"
+
+  export *
+  module * { export * }
+}
+
+module WZWebViewController.Swift {
+    header "WZWebViewController-Swift.h"
+    requires objc
+}

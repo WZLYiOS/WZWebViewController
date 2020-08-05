@@ -1,0 +1,18 @@
+PODS:
+  - WZWebViewController (2.0.0):
+    - WZWebViewController/Source (= 2.0.0)
+  - WZWebViewController/Source (2.0.0)
+
+DEPENDENCIES:
+  - WZWebViewController (from `../`)
+
+EXTERNAL SOURCES:
+  WZWebViewController:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  WZWebViewController: 1bc98a8d0b0da301702bd36c475986a9a93bcb8d
+
+PODFILE CHECKSUM: 26839503dae737203b8267a3d0cfe60e1c5b4d72
+
+COCOAPODS: 1.9.1
