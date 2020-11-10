@@ -194,7 +194,7 @@ open class WZWebViewController: UIViewController {
     private var estimatedProgressObservation: NSKeyValueObservation!
     
     /// 标题观察者
-    private var titleObservation: NSKeyValueObservation!
+    public var titleObservation: NSKeyValueObservation!
     
     override open func viewDidLoad() {
         super.viewDidLoad()
@@ -227,8 +227,8 @@ open class WZWebViewController: UIViewController {
         view.addSubview(progressView)
     }
     
-    /// 配置位置
-    func configLocation() {
+     /// 配置位置
+     open func configLocation() {
         
         webView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         webView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
