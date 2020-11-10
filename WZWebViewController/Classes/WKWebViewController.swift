@@ -122,7 +122,7 @@ open class WZWebViewController: UIViewController {
     fileprivate var previousToolbarState: (tintColor: UIColor, hidden: Bool) = (.black, false)
     
     /// webview
-    fileprivate lazy var webView: WKWebView = {
+    public lazy var webView: WKWebView = {
         
         let webConfiguration = WKWebViewConfiguration()
         let temWebView = WKWebView(frame: .zero, configuration: webConfiguration)
@@ -136,7 +136,7 @@ open class WZWebViewController: UIViewController {
     }()
     
     /// 进度视图
-    fileprivate lazy var progressView: UIProgressView = {
+    public lazy var progressView: UIProgressView = {
         let temProgressView = UIProgressView(progressViewStyle: .default)
         temProgressView.trackTintColor = UIColor(white: 1, alpha: 0)
         temProgressView.translatesAutoresizingMaskIntoConstraints = false

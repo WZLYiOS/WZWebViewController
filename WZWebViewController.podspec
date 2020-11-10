@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'WZWebViewController'
-  s.version          = '2.1.0'
+  s.version          = '2.1.1'
   s.summary          = '浏览器控制器'
   s.homepage         = 'https://github.com/WZLYiOS/WZWebViewController'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
