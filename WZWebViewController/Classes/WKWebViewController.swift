@@ -126,7 +126,7 @@ open class WZWebViewController: UIViewController {
     
     
     /// webview
-    fileprivate lazy var webView: WKWebView = {
+    public lazy var webView: WKWebView = {
         
         let webConfiguration = WKWebViewConfiguration()
         let temWebView = WKWebView(frame: .zero, configuration: webConfiguration)
@@ -145,7 +145,7 @@ open class WZWebViewController: UIViewController {
     }(WZWkScriptMessage(scriptDelegate: self))
     
     /// 进度视图
-    fileprivate lazy var progressView: UIProgressView = {
+    public lazy var progressView: UIProgressView = {
         let temProgressView = UIProgressView(progressViewStyle: .default)
         temProgressView.trackTintColor = UIColor(white: 1, alpha: 0)
         temProgressView.translatesAutoresizingMaskIntoConstraints = false
@@ -203,7 +203,7 @@ open class WZWebViewController: UIViewController {
     private var estimatedProgressObservation: NSKeyValueObservation!
     
     /// 标题观察者
-    private var titleObservation: NSKeyValueObservation!
+    public var titleObservation: NSKeyValueObservation!
     
     override open func viewDidLoad() {
         super.viewDidLoad()
@@ -236,8 +236,8 @@ open class WZWebViewController: UIViewController {
         view.addSubview(progressView)
     }
     
-    /// 配置位置
-    func configLocation() {
+     /// 配置位置
+     open func configLocation() {
         
         webView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         webView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
