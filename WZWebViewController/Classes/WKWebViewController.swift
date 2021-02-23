@@ -18,6 +18,7 @@ fileprivate struct UrlsHandledByApp {
     public static var blank = true
 }
 
+/// MARK - 代理
 @objc public protocol WZWebViewControllerDelegate {
     @objc optional func webViewController(_ controller: WZWebViewController, canDismiss url: URL) -> Bool
     
@@ -25,6 +26,8 @@ fileprivate struct UrlsHandledByApp {
     @objc optional func webViewController(_ controller: WZWebViewController, didFinish url: URL)
     @objc optional func webViewController(_ controller: WZWebViewController, didFail url: URL, withError error: Error)
     @objc optional func webViewController(_ controller: WZWebViewController, decidePolicy url: URL, navigationType: NavigationType) -> Bool
+    
+    @objc optional func webViewController(_ controller: WZWebViewController, didReceive message: WKScriptMessage)
 }
 
 
@@ -121,6 +124,7 @@ open class WZWebViewController: UIViewController {
     /// 上一步工具栏状态
     fileprivate var previousToolbarState: (tintColor: UIColor, hidden: Bool) = (.black, false)
     
+    
     /// webview
     fileprivate lazy var webView: WKWebView = {
         
@@ -134,6 +138,11 @@ open class WZWebViewController: UIViewController {
         temWebView.translatesAutoresizingMaskIntoConstraints = false
         return temWebView
     }()
+    
+    /// 代理中间件
+    private lazy var scriptMessageDelegate: WZWkScriptMessage = {
+        return $0
+    }(WZWkScriptMessage(scriptDelegate: self))
     
     /// 进度视图
     fileprivate lazy var progressView: UIProgressView = {
@@ -198,7 +207,7 @@ open class WZWebViewController: UIViewController {
     
     override open func viewDidLoad() {
         super.viewDidLoad()
-        
+        webView.configuration.suppressesIncrementalRendering = false
         configView()
         configLocation()
         addBarButtonItems()
@@ -257,6 +266,16 @@ open class WZWebViewController: UIViewController {
     
     override open func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    /// 注册js回调key
+    open func addScriptMessageHandler(name: String){
+        webView.configuration.userContentController.add(scriptMessageDelegate, name: name)
+    }
+    
+    /// oc调用js
+    open func evaluateJavaScript(_ javaScriptString: String, completionHandler: ((Any?, Error?) -> Void)? = nil) {
+        webView.evaluateJavaScript(javaScriptString, completionHandler: completionHandler)
     }
     
     /// 释放
@@ -627,6 +646,14 @@ fileprivate extension WZWebViewController {
 // MARK: - WKUIDelegate
 extension WZWebViewController: WKUIDelegate {
     
+}
+
+// MARK: - WKScriptMessageHandler
+extension WZWebViewController: WKScriptMessageHandler {
+    
+    public func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        delegate?.webViewController?(self, didReceive: message)
+    }
 }
 
 // MARK: - WKNavigationDelegate
