@@ -26,8 +26,8 @@ fileprivate struct UrlsHandledByApp {
     @objc optional func webViewController(_ controller: WZWebViewController, didFinish url: URL)
     @objc optional func webViewController(_ controller: WZWebViewController, didFail url: URL, withError error: Error)
     @objc optional func webViewController(_ controller: WZWebViewController, decidePolicy url: URL, navigationType: NavigationType) -> Bool
-    
     @objc optional func webViewController(_ controller: WZWebViewController, didReceive message: WKScriptMessage)
+    @objc optional func webViewController(_ controller: WZWebViewController, webView title: String)
 }
 
 
@@ -118,13 +118,6 @@ open class WZWebViewController: UIViewController {
     /// 活动按钮图标
     open var activityBarButtonItemImage: UIImage?
     
-    /// 上一步导航状态
-    fileprivate var previousNavigationBarState: (tintColor: UIColor, hidden: Bool) = (.black, false)
-    
-    /// 上一步工具栏状态
-    fileprivate var previousToolbarState: (tintColor: UIColor, hidden: Bool) = (.black, false)
-    
-    
     /// webview
     public lazy var webView: WKWebView = {
         
@@ -136,6 +129,9 @@ open class WZWebViewController: UIViewController {
         temWebView.allowsBackForwardNavigationGestures = true
         temWebView.isMultipleTouchEnabled = true
         temWebView.translatesAutoresizingMaskIntoConstraints = false
+        if #available(iOS 11, *) {
+            temWebView.scrollView.contentInsetAdjustmentBehavior = .never
+        }
         return temWebView
     }()
     
@@ -215,8 +211,12 @@ open class WZWebViewController: UIViewController {
         setupTitleObservation()
         if let s = self.source {
             self.load(source: s)
-        } else {
-            debugPrint("[\(type(of: self))][Error] Invalid url")
+        }
+        
+        if let tintColor = tintColor {
+            progressView.progressTintColor = tintColor
+            navigationController?.navigationBar.tintColor = tintColor
+            navigationController?.toolbar.tintColor = tintColor
         }
     }
     
@@ -226,12 +226,7 @@ open class WZWebViewController: UIViewController {
         view.backgroundColor = UIColor.white
         extendedLayoutIncludesOpaqueBars = true
         edgesForExtendedLayout = [.bottom]
-        
-        if let navigation = self.navigationController {
-            self.previousNavigationBarState = (navigation.navigationBar.tintColor, navigation.navigationBar.isHidden)
-            self.previousToolbarState = (navigation.toolbar.tintColor, navigation.toolbar.isHidden)
-        }
-        
+
         view.addSubview(webView)
         view.addSubview(progressView)
     }
@@ -250,16 +245,7 @@ open class WZWebViewController: UIViewController {
         progressView.heightAnchor.constraint(equalToConstant: 2).isActive = true
     }
     
-    override open func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        setUpState()
-    }
-    
-    override open func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        rollbackState()
-    }
-    
+  
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -282,12 +268,9 @@ open class WZWebViewController: UIViewController {
     deinit {
         debugPrint("释放WZWebViewController")
     }
-}
-
-/// MARK: - Public Methods
-public extension WZWebViewController {
     
-    func load(source s: WZWebSource) {
+    /// 加载地址
+    open func load(source s: WZWebSource) {
         switch s {
         case .remote(let url):
             self.load(remote: url)
@@ -297,16 +280,20 @@ public extension WZWebViewController {
             self.load(string: str, base: base)
         }
     }
+}
+
+/// MARK: - Public Methods
+public extension WZWebViewController {
     
-    func load(remote: URL) {
+    private func load(remote: URL) {
         webView.load(createRequest(url: remote))
     }
     
-    func load(file: URL, access: URL) {
+    private func load(file: URL, access: URL) {
         webView.loadFileURL(file, allowingReadAccessTo: access)
     }
     
-    func load(string: String, base: URL? = nil) {
+    private func load(string: String, base: URL? = nil) {
         webView.loadHTMLString(string, baseURL: base)
     }
     
@@ -382,7 +369,10 @@ fileprivate extension WZWebViewController {
         if websiteTitleInNavigationBar {
             titleObservation = webView.observe(\.title, options: [.new], changeHandler: { [weak self] (webView, change) in
                 guard let self = self else { return }
-                self.navigationItem.title = webView.title
+                if let title = webView.title, !title.isEmpty {
+                    self.navigationItem.title = webView.title
+                    self.delegate?.webViewController?(self, webView: title)
+                }
             })
         }
     }
@@ -510,28 +500,6 @@ fileprivate extension WZWebViewController {
             barButtonItem -> UIBarButtonItem in
             return updateReloadBarButtonItem(barButtonItem, isLoading)
         }
-    }
-    
-    func setUpState() {
-        
-        navigationController?.setNavigationBarHidden(false, animated: true)
-        navigationController?.setToolbarHidden(toolbarItemTypes.count == 0, animated: true)
-        
-        if let tintColor = tintColor {
-            progressView.progressTintColor = tintColor
-            navigationController?.navigationBar.tintColor = tintColor
-            navigationController?.toolbar.tintColor = tintColor
-        }
-    }
-    
-    func rollbackState() {
-        progressView.progress = 0
-        
-        navigationController?.navigationBar.tintColor = previousNavigationBarState.tintColor
-        navigationController?.toolbar.tintColor = previousToolbarState.tintColor
-        
-        navigationController?.setToolbarHidden(previousToolbarState.hidden, animated: true)
-        navigationController?.setNavigationBarHidden(previousNavigationBarState.hidden, animated: true)
     }
     
     func checkRequestCookies(_ request: URLRequest, cookies: [HTTPCookie]) -> Bool {

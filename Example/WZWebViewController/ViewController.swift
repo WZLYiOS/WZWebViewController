@@ -34,9 +34,14 @@ class ViewController: UIViewController {
     
     @objc private func eventForPush() {
         
-        let vc = WZWebViewController(url: URL(string: "http://sign-test.aiqingtijian.com/page/lHTtuYaxWcnwMuNdeahXVyyyHXhvvjou")!)
+        let vc = WZWebViewController(url: URL(string: "http://m.7799520.com/zt/agreement/agreement.html")!)
         vc.toolbarItemTypes = []
-        vc.rightNavigaionBarItemTypes = [.activity, .reload, .forward, .back]
+        vc.rightNavigaionBarItemTypes = [.back]
+//        vc.leftNavigaionBarItemTypes = [.done,.custom(icon: nil, title: "关闭", action: { (vc) in
+//            
+//        })]
+//        vc.leftNavigaionBarItemTypes
+        navigationController?.navigationBar.isTranslucent = true
         navigationController?.pushViewController(vc, animated: true)
     }
 

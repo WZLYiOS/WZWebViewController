@@ -79,8 +79,6 @@ public enum NavigationBarPosition: String, Equatable, Codable {
     case right
 }
 
-
-
 /// MARK - 导航类型
 @objc public enum NavigationType: Int, Equatable, Codable {
     case linkActivated
