@@ -9,7 +9,6 @@
 import UIKit
 import WebKit
 
-
 fileprivate let cookieKey = "Cookie"
 
 fileprivate struct UrlsHandledByApp {
@@ -30,6 +29,23 @@ fileprivate struct UrlsHandledByApp {
     @objc optional func webViewController(_ controller: WZWebViewController, webView title: String)
 }
 
+///// MARK -  配置
+//open class WZWebViewDefault{
+//
+//    /// 单利
+//    public static let appearance: WZWebViewDefault = {
+//        return $0
+//    }(WZWebViewDefault())
+//
+//    /// 请求头
+//    public var headers: [String: String]?
+//
+//    /// 单纯UserAgent
+//    public var pureUserAgent: String?
+//
+//    /// 拼接token
+//    public var prefixToken: String?
+//}
 
 /// MARK - 我主良缘浏览器控制器
 open class WZWebViewController: UIViewController {
@@ -224,9 +240,8 @@ open class WZWebViewController: UIViewController {
     func configView() {
         
         view.backgroundColor = UIColor.white
-        extendedLayoutIncludesOpaqueBars = true
-        edgesForExtendedLayout = [.bottom]
-
+//        extendedLayoutIncludesOpaqueBars = true
+//        edgesForExtendedLayout = [.bottom]
         view.addSubview(webView)
         view.addSubview(progressView)
     }
