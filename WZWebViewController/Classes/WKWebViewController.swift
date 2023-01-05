@@ -138,6 +138,7 @@ open class WZWebViewController: UIViewController {
     public lazy var webView: WKWebView = {
         
         let webConfiguration = WKWebViewConfiguration()
+        webConfiguration.processPool = WZWkProcessPool.default
         let temWebView = WKWebView(frame: .zero, configuration: webConfiguration)
         
         temWebView.uiDelegate = self

@@ -24,3 +24,10 @@ public class WZWkScriptMessage: NSObject, WKScriptMessageHandler {
         scriptDelegate?.userContentController(userContentController, didReceive: message)
     }
 }
+
+/// MARK - 单例
+public class WZWkProcessPool: WKProcessPool {
+    
+    /// 单例
+    static let `default`: WZWkProcessPool = WZWkProcessPool()
+}
