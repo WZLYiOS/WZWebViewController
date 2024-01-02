@@ -17,68 +17,16 @@ fileprivate struct UrlsHandledByApp {
     public static var blank = true
 }
 
-/// MARK - 代理
-@objc public protocol WZWebViewControllerDelegate {
-    @objc optional func webViewController(_ controller: WZWebViewController, canDismiss url: URL) -> Bool
-    
-    @objc optional func webViewController(_ controller: WZWebViewController, didStart url: URL)
-    @objc optional func webViewController(_ controller: WZWebViewController, didFinish url: URL)
-    @objc optional func webViewController(_ controller: WZWebViewController, didFail url: URL, withError error: Error)
-    @objc optional func webViewController(_ controller: WZWebViewController, decidePolicy url: URL, navigationType: NavigationType) -> Bool
-    @objc optional func webViewController(_ controller: WZWebViewController, didReceive message: WKScriptMessage)
-    @objc optional func webViewController(_ controller: WZWebViewController, webView title: String)
-}
-
-///// MARK -  配置
-//open class WZWebViewDefault{
-//
-//    /// 单利
-//    public static let appearance: WZWebViewDefault = {
-//        return $0
-//    }(WZWebViewDefault())
-//
-//    /// 请求头
-//    public var headers: [String: String]?
-//
-//    /// 单纯UserAgent
-//    public var pureUserAgent: String?
-//
-//    /// 拼接token
-//    public var prefixToken: String?
-//}
 
 /// MARK - 我主良缘浏览器控制器
 open class WZWebViewController: UIViewController {
-    
-    /// 初始化
-    public init() {
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    /// 初始化
-    /// - Parameter source: 资源
-    public init(source: WZWebSource?) {
-        super.init(nibName: nil, bundle: nil)
-        self.source = source
-    }
-    
-    
-    /// 初始化
-    /// - Parameter url: url
-    public init(url: URL) {
-        super.init(nibName: nil, bundle: nil)
-        self.source = .remote(url)
-    }
-    
+        
     /// 资源
-    open var source: WZWebSource?
+    open var source: WZWebSource!
     
-    /// url
-    open internal(set) var url: URL?
-    
-    /// tintColor
-    open var tintColor: UIColor?
-    
+//    /// url
+//    open internal(set) var url: URL?
+        
     /// 允许文件Url
     open var allowsFileURL = true
     
@@ -133,14 +81,13 @@ open class WZWebViewController: UIViewController {
     
     /// 活动按钮图标
     open var activityBarButtonItemImage: UIImage?
-    
+        
     /// webview
     public lazy var webView: WKWebView = {
         
         let webConfiguration = WKWebViewConfiguration()
         webConfiguration.processPool = WZWkProcessPool.default
         let temWebView = WKWebView(frame: .zero, configuration: webConfiguration)
-        
         temWebView.uiDelegate = self
         temWebView.navigationDelegate = self
         temWebView.allowsBackForwardNavigationGestures = true
@@ -218,6 +165,14 @@ open class WZWebViewController: UIViewController {
     /// 标题观察者
     public var titleObservation: NSKeyValueObservation!
     
+    /// 初始化
+    /// - Parameter source: 资源
+    public init(source: WZWebSource) {
+        self.source = source
+        super.init(nibName: nil, bundle: nil)
+        loadSource(source)
+    }
+    
     override open func viewDidLoad() {
         super.viewDidLoad()
         webView.configuration.suppressesIncrementalRendering = false
@@ -226,23 +181,12 @@ open class WZWebViewController: UIViewController {
         addBarButtonItems()
         setupEstimatedProgressObservation()
         setupTitleObservation()
-        if let s = self.source {
-            self.load(source: s)
-        }
-        
-        if let tintColor = tintColor {
-            progressView.progressTintColor = tintColor
-            navigationController?.navigationBar.tintColor = tintColor
-            navigationController?.toolbar.tintColor = tintColor
-        }
     }
     
     /// 配置视图
     func configView() {
         
         view.backgroundColor = UIColor.white
-//        extendedLayoutIncludesOpaqueBars = true
-//        edgesForExtendedLayout = [.bottom]
         view.addSubview(webView)
         view.addSubview(progressView)
     }
@@ -286,10 +230,10 @@ open class WZWebViewController: UIViewController {
     }
     
     /// 加载地址
-    open func load(source s: WZWebSource) {
-        switch s {
+    open func loadSource(_ remote: WZWebSource) {
+        switch remote {
         case .remote(let url):
-            self.load(remote: url)
+            self.load(remote: URL(string: url))
         case .file(let url, access: let access):
             self.load(file: url, access: access)
         case .string(let str, base: let base):
@@ -301,8 +245,26 @@ open class WZWebViewController: UIViewController {
 /// MARK: - Public Methods
 public extension WZWebViewController {
     
-    private func load(remote: URL) {
-        webView.load(createRequest(url: remote))
+    private func load(remote: URL?) {
+        
+        guard let url = remote else {
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        
+        // 设置头
+        if let headers = headers {
+            for (field, value) in headers {
+                request.addValue(value, forHTTPHeaderField: field)
+            }
+        }
+        
+        // 设置cookies
+        if let cookies = availableCookies, let value = HTTPCookie.requestHeaderFields(with: cookies)[cookieKey] {
+            request.addValue(value, forHTTPHeaderField: cookieKey)
+        }
+        webView.load(request)
     }
     
     private func load(file: URL, access: URL) {
@@ -328,35 +290,15 @@ fileprivate extension WZWebViewController {
         return cookies?.filter {
             cookie in
             var result = true
-            let url = self.source?.remoteURL
+            let url = self.source?.url
             if let host = url?.host, !cookie.domain.hasSuffix(host) {
                 result = false
             }
             if cookie.isSecure && url?.scheme != "https" {
                 result = false
             }
-            
             return result
         }
-    }
-    
-    /// 创建Request
-    func createRequest(url: URL) -> URLRequest {
-        
-        var request = URLRequest(url: url)
-        
-        // 设置头
-        if let headers = headers {
-            for (field, value) in headers {
-                request.addValue(value, forHTTPHeaderField: field)
-            }
-        }
-        
-        // 设置cookies
-        if let cookies = availableCookies, let value = HTTPCookie.requestHeaderFields(with: cookies)[cookieKey] {
-            request.addValue(value, forHTTPHeaderField: cookieKey)
-        }
-        return request
     }
     
     /// 设置进度条观察者
@@ -584,7 +526,7 @@ fileprivate extension WZWebViewController {
         if webView.url != nil {
             webView.reload()
         } else if let s = self.source {
-            self.load(source: s)
+            self.loadSource(s)
         }
     }
     
@@ -646,36 +588,24 @@ extension WZWebViewController: WKNavigationDelegate {
     public func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         updateBarButtonItems()
         self.progressView.progress = 0
-        if let u = webView.url {
-            self.url = u
-            delegate?.webViewController?(self, didStart: u)
-        }
+        delegate?.webViewController?(self, didStart: webView.url)
     }
     public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         updateBarButtonItems()
         self.progressView.progress = 0
-        if let url = webView.url {
-            self.url = url
-            delegate?.webViewController?(self, didFinish: url)
-        }
+        delegate?.webViewController?(self, didFinish: webView.url)
     }
     
     public func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         updateBarButtonItems()
         self.progressView.progress = 0
-        if let url = webView.url {
-            self.url = url
-            delegate?.webViewController?(self, didFail: url, withError: error)
-        }
+        delegate?.webViewController?(self, didFail: webView.url, withError: error)
     }
     
     public func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         updateBarButtonItems()
         self.progressView.progress = 0
-        if let url = webView.url {
-            self.url = url
-            delegate?.webViewController?(self, didFail: url, withError: error)
-        }
+        delegate?.webViewController?(self, didFail: webView.url, withError: error)
     }
     
     public func webView(_ webView: WKWebView, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {

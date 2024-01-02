@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1AFB756FDBC0C5A5398C60F5BAACA63F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
+		281864BD2B43DDBB0051B8F1 /* WZWebViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281864BC2B43DDBB0051B8F1 /* WZWebViewControllerDelegate.swift */; };
 		28E5AB5825E4FA83004658B9 /* WZWkScriptMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E5AB5725E4FA83004658B9 /* WZWkScriptMessage.swift */; };
 		3F100FA6CA39ACE9B1EBB0EE2F28A898 /* WKWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18FC495C224B32B29AC0D63A1B43747 /* WKWebViewController.swift */; };
 		5FC502C4747D9F14553D93C712EFACB4 /* WZWebViewController-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4479BD34B193D3E4D7808360418EE697 /* WZWebViewController-dummy.m */; };
@@ -31,6 +32,7 @@
 
 /* Begin PBXFileReference section */
 		0E4F50F4CFDA660F25A0D334AADBD0B7 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		281864BC2B43DDBB0051B8F1 /* WZWebViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WZWebViewControllerDelegate.swift; path = WZWebViewController/Classes/WZWebViewControllerDelegate.swift; sourceTree = "<group>"; };
 		28E5AB5725E4FA83004658B9 /* WZWkScriptMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WZWkScriptMessage.swift; path = WZWebViewController/Classes/WZWkScriptMessage.swift; sourceTree = "<group>"; };
 		2D84044B4296EF22F8DD1120FCF1686C /* Pods-WZWebViewController_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-WZWebViewController_Example-resources.sh"; sourceTree = "<group>"; };
 		3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
@@ -125,6 +127,7 @@
 				C3FD3F3F86402FCB65B2A53C38FA30BF /* Enums.swift */,
 				C18FC495C224B32B29AC0D63A1B43747 /* WKWebViewController.swift */,
 				28E5AB5725E4FA83004658B9 /* WZWkScriptMessage.swift */,
+				281864BC2B43DDBB0051B8F1 /* WZWebViewControllerDelegate.swift */,
 				0DA2E0F3DB73CC804CC727C3D5E5D15A /* Resources */,
 			);
 			name = Source;
@@ -321,6 +324,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				281864BD2B43DDBB0051B8F1 /* WZWebViewControllerDelegate.swift in Sources */,
 				DA61262DCEF87AE3A6D1B73E284D0941 /* Enums.swift in Sources */,
 				3F100FA6CA39ACE9B1EBB0EE2F28A898 /* WKWebViewController.swift in Sources */,
 				28E5AB5825E4FA83004658B9 /* WZWkScriptMessage.swift in Sources */,

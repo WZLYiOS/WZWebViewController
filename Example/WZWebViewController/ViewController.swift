@@ -34,7 +34,7 @@ class ViewController: UIViewController {
     
     @objc private func eventForPush() {
         
-        let vc = WZWebViewController(url: URL(string: "http://m.7799520.com/zt/agreement/agreement.html")!)
+        let vc = WZWebViewController(source: .remote("https://www.baidu.com/"))
         vc.toolbarItemTypes = []
         vc.rightNavigaionBarItemTypes = [.back]
 //        vc.leftNavigaionBarItemTypes = [.done,.custom(icon: nil, title: "关闭", action: { (vc) in

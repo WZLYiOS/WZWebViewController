@@ -13,28 +13,21 @@ import Foundation
 /// MARK - WZWebSource
 public enum WZWebSource: Equatable {
     
-    case remote(URL)
+    case remote(String)
     case file(URL, access: URL)
     case string(String, base: URL?)
     
     public var url: URL? {
         switch self {
-        case .remote(let u): return u
+        case .remote(let u): return URL(string: u)
         case .file(let u, access: _): return u
         default: return nil
         }
     }
-    
-    public var remoteURL: URL? {
-        switch self {
-        case .remote(let u): return u
-        default: return nil
-        }
-    }
-    
+
     public var absoluteString: String? {
         switch self {
-        case .remote(let u): return u.absoluteString
+        case .remote(let u): return u
         case .file(let u, access: _): return u.absoluteString
         default: return nil
         }
