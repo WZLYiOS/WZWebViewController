@@ -37,10 +37,6 @@ class ViewController: UIViewController {
         let vc = WZWebViewController(source: .remote("https://www.baidu.com/"))
         vc.toolbarItemTypes = []
         vc.rightNavigaionBarItemTypes = [.back]
-//        vc.leftNavigaionBarItemTypes = [.done,.custom(icon: nil, title: "关闭", action: { (vc) in
-//            
-//        })]
-//        vc.leftNavigaionBarItemTypes
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.pushViewController(vc, animated: true)
     }

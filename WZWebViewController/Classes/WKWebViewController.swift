@@ -181,6 +181,7 @@ open class WZWebViewController: UIViewController {
         addBarButtonItems()
         setupEstimatedProgressObservation()
         setupTitleObservation()
+        progressView.progress = 0.1
     }
     
     /// 配置视图
@@ -245,9 +246,10 @@ open class WZWebViewController: UIViewController {
 /// MARK: - Public Methods
 public extension WZWebViewController {
     
-    private func load(remote: URL?) {
+    func load(remote: URL?) {
         
         guard let url = remote else {
+            delegate?.webViewController?(self, didFail: remote, withError: NSError(domain: "Url Error", code: 213213))
             return
         }
         
@@ -267,11 +269,11 @@ public extension WZWebViewController {
         webView.load(request)
     }
     
-    private func load(file: URL, access: URL) {
+    func load(file: URL, access: URL) {
         webView.loadFileURL(file, allowingReadAccessTo: access)
     }
     
-    private func load(string: String, base: URL? = nil) {
+    func load(string: String, base: URL? = nil) {
         webView.loadHTMLString(string, baseURL: base)
     }
     
@@ -587,7 +589,7 @@ extension WZWebViewController: WKNavigationDelegate {
     
     public func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         updateBarButtonItems()
-        self.progressView.progress = 0
+        self.progressView.progress = 0.1
         delegate?.webViewController?(self, didStart: webView.url)
     }
     public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
