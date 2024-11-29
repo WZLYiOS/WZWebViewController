@@ -31,7 +31,7 @@ open class WZWebViewController: UIViewController {
     open var allowsFileURL = true
     
     /// 回调
-    open var delegate: WZWebViewControllerDelegate?
+    open weak var delegate: WZWebViewControllerDelegate?
     
     /// 绕过SSL主机
     open var bypassedSSLHosts: [String]?

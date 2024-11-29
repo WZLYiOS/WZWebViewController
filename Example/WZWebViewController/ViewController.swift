@@ -23,21 +23,37 @@ class ViewController: UIViewController {
         return temButton
     }()
     
+    private lazy var webController: WZWebViewController = {
+        $0.view.translatesAutoresizingMaskIntoConstraints = false
+        return $0
+    }(WZWebViewController(source: .remote("https://h5.jdtao.com/#/index")))
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(button)
-        button.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        button.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        button.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        button.heightAnchor.constraint(equalToConstant: 44).isActive = true
+        navigationItem.title = "测试"
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.isHidden = true
+//        view.addSubview(button)
+//        button.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+//        button.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+//        button.widthAnchor.constraint(equalToConstant: 100).isActive = true
+//        button.heightAnchor.constraint(equalToConstant: 44).isActive = true
+        addChild(webController)
+        view.addSubview(webController.view)
+        NSLayoutConstraint.activate([
+            webController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            webController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            webController.view.topAnchor.constraint(equalTo: view.topAnchor),
+            webController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
     }
     
     @objc private func eventForPush() {
         
-        let vc = WZWebViewController(source: .remote("https://www.baidu.com/"))
+        let vc = WZWebViewController(source: .remote("https://h5.jdtao.com/#/index"))
         vc.toolbarItemTypes = []
         vc.rightNavigaionBarItemTypes = [.back]
-        navigationController?.navigationBar.isTranslucent = true
+        navigationController?.navigationBar.isTranslucent = false
         navigationController?.pushViewController(vc, animated: true)
     }
 

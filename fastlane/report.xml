@@ -5,57 +5,59 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="00: default_platform" time="0.000473">
+      <testcase classname="fastlane.lanes" name="00: default_platform" time="0.000329">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="01: version_get_podspec" time="0.000931">
+      <testcase classname="fastlane.lanes" name="01: version_get_podspec" time="0.000733">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="02: pod_lib_lint" time="21.392306">
+      <testcase classname="fastlane.lanes" name="02: pod_lib_lint" time="21.985318">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="03: version_bump_podspec" time="0.001206">
+      <testcase classname="fastlane.lanes" name="03: version_bump_podspec" time="0.001287">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="04: git_add" time="0.030657">
+      <testcase classname="fastlane.lanes" name="04: git_add" time="0.038806">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="05: git_commit" time="0.049941">
+      <testcase classname="fastlane.lanes" name="05: git_commit" time="0.055369">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="06: push_to_git_remote" time="3.986324">
+      <testcase classname="fastlane.lanes" name="06: push_to_git_remote" time="6.735944">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="07: git_tag_exists" time="0.027014">
+      <testcase classname="fastlane.lanes" name="07: git_tag_exists" time="0.025512">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="08: add_git_tag" time="0.035575">
+      <testcase classname="fastlane.lanes" name="08: add_git_tag" time="0.037077">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="09: push_git_tags" time="3.076538">
+      <testcase classname="fastlane.lanes" name="09: push_git_tags" time="4.007592">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="10: pod_push" time="40.113692">
+      <testcase classname="fastlane.lanes" name="10: pod_push" time="139.005512">
+        
+          <failure message="/Users/qiuqixiang/.rbenv/versions/3.3.0/lib/ruby/gems/3.3.0/gems/fastlane-2.220.0/fastlane/lib/fastlane/actions/actions_helper.rb:67:in `execute_action&apos;&#10;/Users/qiuqixiang/.rbenv/versions/3.3.0/lib/ruby/gems/3.3.0/gems/fastlane-2.220.0/fastlane/lib/fastlane/runner.rb:255:in `block in execute_action&apos;&#10;/Users/qiuqixiang/.rbenv/versions/3.3.0/lib/ruby/gems/3.3.0/gems/fastlane-2.220.0/fastlane/lib/fastlane/runner.rb:229:in `chdir&apos;&#10;/Users/qiuqixiang/.rbenv/versions/3.3.0/lib/ruby/gems/3.3.0/gems/fastlane-2.220.0/fastlane/lib/fastlane/runner.rb:229:in `execute_action&apos;&#10;/Users/qiuqixiang/.rbenv/versions/3.3.0/lib/ruby/gems/3.3.0/gems/fastlane-2.220.0/fastlane/lib/fastlane/runner.rb:157:in `trigger_action_by_name&apos;&#10;/Users/qiuqixiang/.rbenv/versions/3.3.0/lib/ruby/gems/3.3.0/gems/fastlane-2.220.0/fastlane/lib/fastlane/fast_file.rb:159:in `method_missing&apos;&#10;Fastfile:76:in `block (2 levels) in parsing_binding&apos;&#10;/Users/qiuqixiang/.rbenv/versions/3.3.0/lib/ruby/gems/3.3.0/gems/fastlane-2.220.0/fastlane/lib/fastlane/lane.rb:41:in `call&apos;&#10;/Users/qiuqixiang/.rbenv/versions/3.3.0/lib/ruby/gems/3.3.0/gems/fastlane-2.220.0/fastlane/lib/fastlane/runner.rb:49:in `block in execute&apos;&#10;/Users/qiuqixiang/.rbenv/versions/3.3.0/lib/ruby/gems/3.3.0/gems/fastlane-2.220.0/fastlane/lib/fastlane/runner.rb:45:in `chdir&apos;&#10;/Users/qiuqixiang/.rbenv/versions/3.3.0/lib/ruby/gems/3.3.0/gems/fastlane-2.220.0/fastlane/lib/fastlane/runner.rb:45:in `execute&apos;&#10;/Users/qiuqixiang/.rbenv/versions/3.3.0/lib/ruby/gems/3.3.0/gems/fastlane-2.220.0/fastlane/lib/fastlane/lane_manager.rb:46:in `cruise_lane&apos;&#10;/Users/qiuqixiang/.rbenv/versions/3.3.0/lib/ruby/gems/3.3.0/gems/fastlane-2.220.0/fastlane/lib/fastlane/command_line_handler.rb:34:in `handle&apos;&#10;/Users/qiuqixiang/.rbenv/versions/3.3.0/lib/ruby/gems/3.3.0/gems/fastlane-2.220.0/fastlane/lib/fastlane/commands_generator.rb:110:in `block (2 levels) in run&apos;&#10;/Users/qiuqixiang/.rbenv/versions/3.3.0/lib/ruby/gems/3.3.0/gems/commander-4.6.0/lib/commander/command.rb:187:in `call&apos;&#10;/Users/qiuqixiang/.rbenv/versions/3.3.0/lib/ruby/gems/3.3.0/gems/commander-4.6.0/lib/commander/command.rb:157:in `run&apos;&#10;/Users/qiuqixiang/.rbenv/versions/3.3.0/lib/ruby/gems/3.3.0/gems/commander-4.6.0/lib/commander/runner.rb:444:in `run_active_command&apos;&#10;/Users/qiuqixiang/.rbenv/versions/3.3.0/lib/ruby/gems/3.3.0/gems/fastlane-2.220.0/fastlane_core/lib/fastlane_core/ui/fastlane_runner.rb:124:in `run!&apos;&#10;/Users/qiuqixiang/.rbenv/versions/3.3.0/lib/ruby/gems/3.3.0/gems/commander-4.6.0/lib/commander/delegates.rb:18:in `run!&apos;&#10;/Users/qiuqixiang/.rbenv/versions/3.3.0/lib/ruby/gems/3.3.0/gems/fastlane-2.220.0/fastlane/lib/fastlane/commands_generator.rb:363:in `run&apos;&#10;/Users/qiuqixiang/.rbenv/versions/3.3.0/lib/ruby/gems/3.3.0/gems/fastlane-2.220.0/fastlane/lib/fastlane/commands_generator.rb:43:in `start&apos;&#10;/Users/qiuqixiang/.rbenv/versions/3.3.0/lib/ruby/gems/3.3.0/gems/fastlane-2.220.0/fastlane/lib/fastlane/cli_tools_distributor.rb:123:in `take_off&apos;&#10;/Users/qiuqixiang/.rbenv/versions/3.3.0/lib/ruby/gems/3.3.0/gems/fastlane-2.220.0/bin/fastlane:23:in `&lt;top (required)&gt;&apos;&#10;/Users/qiuqixiang/.rbenv/versions/3.3.0/bin/fastlane:25:in `load&apos;&#10;/Users/qiuqixiang/.rbenv/versions/3.3.0/bin/fastlane:25:in `&lt;main&gt;&apos;&#10;&#10;Exit status of command &apos;pod trunk push &apos;WZWebViewController.podspec&apos; --allow-warnings&apos; was 1 instead of 0.&#10;Updating spec repo `trunk`&#10;[!] CDN: trunk Repo update failed - 19 error(s):&#10;CDN: trunk URL couldn&apos;t be downloaded: https://cdn.jsdelivr.net/cocoa/Specs/a/7/5/AFNetworking/2.0.0-RC2/AFNetworking.podspec.json Response: Timeout was reached&#10;CDN: trunk URL couldn&apos;t be downloaded: https://cdn.jsdelivr.net/cocoa/Specs/a/7/5/AFNetworking/2.0.1/AFNetworking.podspec.json Response: Timeout was reached&#10;CDN: trunk URL couldn&apos;t be downloaded: https://cdn.jsdelivr.net/cocoa/Specs/a/7/5/AFNetworking/2.2.0/AFNetworking.podspec.json Response: Timeout was reached&#10;CDN: trunk URL couldn&apos;t be downloaded: https://cdn.jsdelivr.net/cocoa/Specs/a/7/5/AFNetworking/2.2.1/AFNetworking.podspec.json Response: Timeout was reached&#10;CDN: trunk URL couldn&apos;t be downloaded: https://cdn.jsdelivr.net/cocoa/Specs/a/7/5/AFNetworking/2.2.2/AFNetworking.podspec.json Response: Timeout was reached&#10;CDN: trunk URL couldn&apos;t be downloaded: https://cdn.jsdelivr.net/cocoa/Specs/a/7/5/AFNetworking/2.2.4/AFNetworking.podspec.json Response: Timeout was reached&#10;CDN: trunk URL couldn&apos;t be downloaded: https://cdn.jsdelivr.net/cocoa/Specs/a/7/5/AFNetworking/2.5.1/AFNetworking.podspec.json Response: Timeout was reached&#10;CDN: trunk URL couldn&apos;t be downloaded: https://cdn.jsdelivr.net/cocoa/Specs/a/7/5/AFNetworking/2.6.2/AFNetworking.podspec.json Response: Timeout was reached&#10;CDN: trunk URL couldn&apos;t be downloaded: https://cdn.jsdelivr.net/cocoa/Specs/a/7/5/AFNetworking/2.6.3/AFNetworking.podspec.json Response: Timeout was reached&#10;CDN: trunk URL couldn&apos;t be downloaded: https://cdn.jsdelivr.net/cocoa/Specs/a/7/5/AFNetworking/2.7.0/AFNetworking.podspec.json Response: Timeout was reached&#10;CDN: trunk URL couldn&apos;t be downloaded: https://cdn.jsdelivr.net/cocoa/Specs/a/7/5/AFNetworking/3.0.2/AFNetworking.podspec.json Response: Timeout was reached&#10;CDN: trunk URL couldn&apos;t be downloaded: https://cdn.jsdelivr.net/cocoa/Specs/a/7/5/AFNetworking/4.0.0/AFNetworking.podspec.json Response: Timeout was reached&#10;CDN: trunk URL couldn&apos;t be downloaded: https://cdn.jsdelivr.net/cocoa/Specs/b/d/1/FlutterGoogleSignIn/0.0.1/FlutterGoogleSignIn.podspec.json Response: Timeout was reached&#10;CDN: trunk URL couldn&apos;t be downloaded: https://cdn.jsdelivr.net/cocoa/Specs/e/b/8/CGXCategoryView-OC/1.1/CGXCategoryView-OC.podspec.json Response: Timeout was reached&#10;CDN: trunk URL couldn&apos;t be downloaded: https://cdn.jsdelivr.net/cocoa/Specs/e/b/8/CGXCategoryView-OC/1.2.2/CGXCategoryView-OC.podspec.json Response: Timeout was reached&#10;CDN: trunk URL couldn&apos;t be downloaded: https://cdn.jsdelivr.net/cocoa/Specs/e/b/8/CGXCategoryView-OC/1.2.3/CGXCategoryView-OC.podspec.json Response: Timeout was reached&#10;CDN: trunk URL couldn&apos;t be downloaded: https://cdn.jsdelivr.net/cocoa/Specs/e/b/8/CGXCategoryView-OC/1.2.5/CGXCategoryView-OC.podspec.json Response: Timeout was reached&#10;CDN: trunk URL couldn&apos;t be downloaded: https://cdn.jsdelivr.net/cocoa/Specs/e/b/8/CGXCategoryView-OC/1.2.6/CGXCategoryView-OC.podspec.json Response: Timeout was reached&#10;CDN: trunk URL couldn&apos;t be downloaded: https://cdn.jsdelivr.net/cocoa/Specs/e/b/8/CGXCategoryView-OC/1.2/CGXCategoryView-OC.podspec.json Response: Timeout was reached&#10;" />
         
       </testcase>
     

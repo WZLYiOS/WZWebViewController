@@ -171,7 +171,7 @@
 				TargetAttributes = {
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
-						DevelopmentTeam = TA399PG2C9;
+						DevelopmentTeam = 74MC74A426;
 						LastSwiftMigration = 0900;
 					};
 				};
@@ -390,7 +390,7 @@
 			baseConfigurationReference = 5FF40A8E8AB7DE39A90F6BE4 /* Pods-WZWebViewController_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = TA399PG2C9;
+				DEVELOPMENT_TEAM = 74MC74A426;
 				INFOPLIST_FILE = WZWebViewController/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
@@ -407,7 +407,7 @@
 			baseConfigurationReference = 26FD15FFEA21E7EBCDA40A4E /* Pods-WZWebViewController_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = TA399PG2C9;
+				DEVELOPMENT_TEAM = 74MC74A426;
 				INFOPLIST_FILE = WZWebViewController/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
